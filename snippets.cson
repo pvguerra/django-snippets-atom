@@ -1,29 +1,58 @@
 # DJANGO 1.10.x
 '.source.python':
-  ### MODELS ###
+  ### MODELS.PY ###
   # CLASS
   'ModelClass':
     'prefix': 'mclass'
     'body': '''
-      class ${1:ClassName}(models.Model):\n\t${2:field_name} = ${3:field}\n\n\tclass Meta:\n\t\tdb_table = '${4:item}'\n\t\tordering = ['${5:item}']\n\t\tverbose_name = '${6:item}'\n\t\tverbose_name_plural = '${7:item}'
+      class ${1:ClassName}(models.Model):\n\t${2:field_name}\n\n\tdef ${3:__unicode__}(${4:self}):\n\t\treturn ${4:self}.${5:field_name}\n\n\tclass Meta:\n\t\tdb_table = '${6:table_name}'\n\t\tordering = ['${7:field_name}']\n\t\tverbose_name = '${8:name}'\n\t\tverbose_name_plural = '${9:name}'
       '''
   # FIELDS
   'AutoField':
     'prefix': 'auto'
-    'body': '''${1:field_name} = models.AutoField(${2:option}, verbose_name='${3:name})'''
+    'body': '''${1:field_name} = models.AutoField(${2:primary_key=True}, verbose_name='${3:name}')'''
   'BooleanField':
     'prefix': 'boolean'
-    'body': '''${1:field_name} = models.BooleanField(${2:default=True}, verbose_name='${3:name})'''
+    'body': '''${1:field_name} = models.BooleanField(${2:default=True}, verbose_name='${3:name}')'''
   'CharField':
     'prefix': 'char'
     'body': '''${1:field_name} = models.CharField(${2:blank=True}, max_length=${3:100}, verbose_name='${4:name}')'''
-  'EmailField':
-    'prefix': 'email'
-    'body': '''${1:field_name} = models.EmailField(${2:unique=True}, max_length=${3:100}, verbose_name='${4:name}')'''
   'DateField':
     'prefix': 'date'
     'body': '''${1:field_name} = models.DateField(${2:null=True}, ${3:blank=True}, ${4:auto_now=False}, ${5:auto_now_add=False})'''
   'DateTimeField':
     'prefix': 'datetime'
     'body': '''${1:field_name} = models.DateTimeField(${2:null=True}, ${3:blank=True}, ${4:auto_now=False}, ${5:auto_now_add=False})'''
-    
+  'DecimalField':
+    'prefix': 'decimal'
+    'body': '''${1:field_name} = models.DecimalField(max_digits=${2:2}, decimal_places=${3:2}, verbose_name='${4:name}')'''
+  'EmailField':
+    'prefix': 'email'
+    'body': '''${1:field_name} = models.EmailField(${2:unique=True}, max_length=${3:100}, verbose_name='${4:name}')'''
+  'FileField':
+    'prefix': 'file'
+    'body': '''${1:field_name} = models.FileField(upload_to='${2:/path/for/upload}')'''
+  'FilePathField':
+    'prefix': 'filepath'
+    'body': '''${1:field_name} = models.FilePathField(path='${2:/location/of/choices}', recursive=${3:True})'''
+  'FloatField':
+    'prefix': 'float'
+    'body': '''${1:field_name} = models.FloatField(${2:option}, verbose_name='${3:name}')'''
+  'ForeignKey':
+    'prefix': 'fk'
+    'body': '''${1:field_name} = models.ForeignKey(${2:RelatedModel}, ${3:blank=True}, verbose_name='${4:name}')'''
+  'ImageField':
+    'prefix': 'image'
+    'body': '''${1:field_name} = models.ImageField(upload_to='${2:/path/for/upload}')'''
+  'IntegerField':
+    'prefix': 'integer'
+    'body': '''${1:field_name} = models.IntegerField(${2:null=True}, ${3:blank=True})'''
+  'ManyToManyField':
+    'prefix': 'm2m'
+    'body': '''${1:field_name} = models.ManyToManyField(${2:})'''
+  'OneToOneField':
+    'prefix': 'o2o'
+    'body': '''${1:field_name} = models.OneToOneField(${2:RelatedModel})'''
+  'TimeField':
+    'prefix': 'time'
+    'body': '''${1:field_name} = models.TimeField(${2:null=True}, ${3:blank=True}, ${4:auto_now=False}, ${5:auto_now_add=False})'''
