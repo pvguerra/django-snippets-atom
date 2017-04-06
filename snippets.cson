@@ -8,51 +8,105 @@
       class ${1:ClassName}(models.Model):\n\t${2:field_name}\n\n\tdef ${3:__unicode__}(${4:self}):\n\t\treturn ${4:self}.${5:field_name}\n\n\tclass Meta:\n\t\tdb_table = '${6:table_name}'\n\t\tordering = ['${7:field_name}']\n\t\tverbose_name = '${8:name}'\n\t\tverbose_name_plural = '${9:name}'
       '''
   # FIELDS
-  'AutoField':
+  'AutoField Model':
     'prefix': 'auto'
     'body': '''${1:field_name} = models.AutoField(${2:primary_key=True}, verbose_name='${3:name}')'''
-  'BooleanField':
+  'BooleanField Model':
     'prefix': 'boolean'
     'body': '''${1:field_name} = models.BooleanField(${2:default=True}, verbose_name='${3:name}')'''
-  'CharField':
+  'CharField Model':
     'prefix': 'char'
     'body': '''${1:field_name} = models.CharField(${2:blank=True}, max_length=${3:100}, verbose_name='${4:name}')'''
-  'DateField':
+  'DateField Model':
     'prefix': 'date'
     'body': '''${1:field_name} = models.DateField(${2:null=True}, ${3:blank=True}, ${4:auto_now=False}, ${5:auto_now_add=False})'''
-  'DateTimeField':
+  'DateTimeField Model':
     'prefix': 'datetime'
     'body': '''${1:field_name} = models.DateTimeField(${2:null=True}, ${3:blank=True}, ${4:auto_now=False}, ${5:auto_now_add=False})'''
-  'DecimalField':
+  'DecimalField Model':
     'prefix': 'decimal'
     'body': '''${1:field_name} = models.DecimalField(max_digits=${2:2}, decimal_places=${3:2}, verbose_name='${4:name}')'''
-  'EmailField':
+  'EmailField Model':
     'prefix': 'email'
     'body': '''${1:field_name} = models.EmailField(${2:unique=True}, max_length=${3:100}, verbose_name='${4:name}')'''
-  'FileField':
+  'FileField Model':
     'prefix': 'file'
     'body': '''${1:field_name} = models.FileField(upload_to='${2:/path/for/upload}')'''
-  'FilePathField':
+  'FilePathField Model':
     'prefix': 'filepath'
     'body': '''${1:field_name} = models.FilePathField(path='${2:/location/of/choices}', recursive=${3:True})'''
-  'FloatField':
+  'FloatField Model':
     'prefix': 'float'
     'body': '''${1:field_name} = models.FloatField(${2:option}, verbose_name='${3:name}')'''
-  'ForeignKey':
+  'ForeignKey Model':
     'prefix': 'fk'
     'body': '''${1:field_name} = models.ForeignKey(${2:RelatedModel}, ${3:blank=True}, verbose_name='${4:name}')'''
-  'ImageField':
+  'ImageField Model':
     'prefix': 'image'
     'body': '''${1:field_name} = models.ImageField(upload_to='${2:/path/for/upload}')'''
-  'IntegerField':
+  'IntegerField Model':
     'prefix': 'integer'
     'body': '''${1:field_name} = models.IntegerField(${2:null=True}, ${3:blank=True})'''
-  'ManyToManyField':
+  'ManyToManyField Model':
     'prefix': 'm2m'
-    'body': '''${1:field_name} = models.ManyToManyField(${2:})'''
-  'OneToOneField':
+    'body': '''${1:field_name} = models.ManyToManyField(${2:RelatedModel})'''
+  'OneToOneField Model':
     'prefix': 'o2o'
     'body': '''${1:field_name} = models.OneToOneField(${2:RelatedModel})'''
-  'TimeField':
+  'TimeField Model':
     'prefix': 'time'
     'body': '''${1:field_name} = models.TimeField(${2:null=True}, ${3:blank=True}, ${4:auto_now=False}, ${5:auto_now_add=False})'''
+
+  ### FORMS.PY ###
+  # CLASS
+  'FormClass':
+    'prefix': 'fclass'
+    'body': '''
+      class ${1:ClassName}(forms.ModelForm):\n\t${2:field_name}\n\n\tclass Meta:\n\t\tmodel = ${3:RelatedModel}\n\t\tfields =['field_name',]\n\n\tdef __init__(${4:self}, *args, **kwargs):\n\t\tsuper(${1:ClassName}, ${4:self}).__init__(*args, **kwargs)\n\n\tdef save(${4:self}, commit=True):\n\t\t${5:field_name} = super(${1:ClassName}, ${4:self}).save(commit=False)\n\n\t\tif commit:\n\t\t${5:field_name}.save()
+      '''
+  # FIELDS
+  'AutoField Form':
+    'prefix': 'auto'
+    'body': '''${1:field_name} = forms.AutoField()'''
+  'BooleanField Form':
+    'prefix': 'fboolean'
+    'body': '''${1:field_name} = forms.BooleanField(required=${2:True}, widget=forms.CheckboxInput(attrs={'class': '${3:class_name}', 'name': '${4:name}', 'id': '${5:id}')'''
+  'CharField Form':
+    'prefix': 'fchar'
+    'body': '''${1:field_name} = forms.CharField(max_length=${2:100}, widget=forms.TextInput(attrs={'class': '${3:class_name}', 'name': '${4:name}', 'id': '${5:id}', 'placeholder': '${6:placeholder}')'''
+  'DateField Form':
+    'prefix': 'fdate'
+    'body': '''${1:field_name} = forms.DateField(required=${2:True}, widget=forms.DateTimeInput(attrs={'class': '${3:class_name}', 'name': '${4:name}', 'id': '${5:id}')'''
+  'DateTimeField Form':
+    'prefix': 'fdatetime'
+    'body': '''${1:field_name} = forms.DateTimeField(required=${2:True}, widget=forms.DateTimeInput(attrs={'class': '${3:class_name}', 'name': '${4:name}', 'id': '${5:id}')'''
+  'EmailField Form':
+    'prefix': 'femail'
+    'body': '''${1:field_name} = forms.EmailField(max_length=${2:50}, widget=forms.EmailInput(attrs={'class': '${3:class_name}', 'name': '${4:name}', 'id': '${5:id}', 'placeholder': '${6:placeholder}')'''
+  'FileField Form':
+    'prefix': 'ffile'
+    'body': '''${1:field_name} = forms.FileField()'''
+  'FilePathField Form':
+    'prefix': 'ffilepath'
+    'body': '''${1:field_name} = forms.FilePathField()'''
+  'FloatField Form':
+    'prefix': 'ffloat'
+    'body': '''${1:field_name} = forms.FloatField()'''
+  'ForeignKey Form':
+    'prefix': 'ffk'
+    'body': '''${1:field_name} = forms.ModelChoiceField(required=${2:True}, queryset=${3:RelatedModel}.objects.all(), widget=forms.Select(attrs={'class': '${4:class_name}', 'name': '${5:name}', 'id': '${6:id}')'''
+  'ImageField Form':
+    'prefix': 'fimage'
+    'body': '''${1:field_name} = forms.ImageField()'''
+  'IntegerField Form':
+    'prefix': 'finteger'
+    'body': '''${1:field_name} = forms.IntegerField()'''
+  'ManyToManyField Form':
+    'prefix': 'fm2m'
+    'body': '''${1:field_name} = forms.ModelMultipleChoiceField(required=${2:True}, queryset=${3:RelatedModel}.objects.all(), widget=forms.SelectMultiple(attrs={'class': '${4:class_name}', 'name': '${5:name}', 'id': '${6:id}')'''
+  'OneToOneField Form':
+    'prefix': 'fo2o'
+    'body': '''${1:field_name} = forms.OneToOneField()'''
+  'TimeField Form':
+    'prefix': 'ftime'
+    'body': '''${1:field_name} = forms.TimeField(widget=forms.TextInput(attrs={'class': '${2:class_name}', 'name': '${3:name}', 'id': '${4:id}', 'placeholder': '${5:placeholder}')'''
