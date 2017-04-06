@@ -1,1 +1,1 @@
-# File for test the snippets
+# File to test the snippets
