@@ -110,3 +110,11 @@
   'TimeField Form':
     'prefix': 'ftime'
     'body': '''${1:field_name} = forms.TimeField(widget=forms.TextInput(attrs={'class': '${2:class_name}', 'name': '${3:name}', 'id': '${4:id}', 'placeholder': '${5:placeholder}')'''
+
+  ### VIEWS.PY ###
+  'Function Based View':
+    'prefix': 'vdef'
+    'body': '''def ${1:viewName}(request):\n\n\treturn render(request, '${2:page.html}', locals())'''
+  'Class Based View':
+    'prefix': 'vclass'
+    'body': '''class ${1:ViewName}(View):\n\n\tdef ${2:func_name}(self):\n\n\t\treturn ${3:something}'''
