@@ -118,3 +118,14 @@
   'Class Based View':
     'prefix': 'vclass'
     'body': '''class ${1:ViewName}(View):\n\n\tdef ${2:func_name}(self):\n\n\t\treturn ${3:something}'''
+
+  ### URLS.PY ###
+  'URL':
+    'prefix': 'url'
+    'body': '''url(r'^${1:url/name}$', views.${2:viewName}, name='${2:viewName}'),'''
+  'URL 2':
+    'prefix': 'url2'
+    'body': '''url(r'^${1:url/name}$', ${2:viewName}.as_view(), name='${2:viewName}'),'''
+  'URL Include':
+    'prefix': 'iurl'
+    'body': '''url(r'^${1:url/name}/', include('${2:appName}.urls', namespace='${2:appName}')),'''
