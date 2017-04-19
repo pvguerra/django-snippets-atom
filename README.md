@@ -6,8 +6,8 @@ Snippets for [Atom](http://atom.io), *works with [Django 1.9.x](http://djangopro
 
 - [x] models.py
 - [x] forms.py
-- [ ] views.py
-- [ ] urls.py
+- [x] views.py
+- [x] urls.py
 - [ ] helpers.py
 - [ ] template tags
 
