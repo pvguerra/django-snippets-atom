@@ -7,7 +7,7 @@
     'body': '''
       class ${1:ClassName}(models.Model):\n\t${2:field_name}\n\n\tdef ${3:__unicode__}(${4:self}):\n\t\treturn ${4:self}.${5:field_name}\n\n\tclass Meta:\n\t\tdb_table = '${6:table_name}'\n\t\tordering = ['${7:field_name}']\n\t\tverbose_name = '${8:name}'\n\t\tverbose_name_plural = '${9:name}'
       '''
-  # FIELDS
+  # FIELDS gustavo manicaca
   'AutoField Model':
     'prefix': 'auto'
     'body': '''${1:field_name} = models.AutoField(${2:primary_key=True}, verbose_name='${3:name}')'''
